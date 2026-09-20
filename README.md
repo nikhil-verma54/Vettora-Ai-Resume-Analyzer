@@ -1,239 +1,211 @@
-# Vettora — AI-Powered Resume Analyzer & Voice Mock Interviewer
+﻿# Vettora — AI-Powered Resume Analyzer & Voice Mock Interviewer
 
-> **Land more job interviews with intelligent ATS optimization, skill gap insights, and realistic voice-enabled mock interviews.**
+> **Land more interviews. Nail every round. Vettora uses AI to optimize your resume for ATS systems and prepare you with realistic voice mock interviews.**
 
-![Status](https://img.shields.io/badge/status-production--ready-brightgreen?style=for-the-badge)
+![Status](https://img.shields.io/badge/status-live-brightgreen?style=for-the-badge)
 ![Backend](https://img.shields.io/badge/backend-Render%20%2B%20PostgreSQL-46E3B7?style=for-the-badge&logo=render)
 ![Frontend](https://img.shields.io/badge/frontend-Vercel-black?style=for-the-badge&logo=vercel)
 ![Auth](https://img.shields.io/badge/auth-Firebase-FFCA28?style=for-the-badge&logo=firebase)
 
-> 🎉 **Project is live and fully production-ready!** Backend deployed on Render with PostgreSQL, frontend deployed on Vercel, Firebase authentication active.
-
 ---
 
-## 🌐 Live Demo
+## 🌐 Live App
 
 | Service | URL |
 |---|---|
-| 🖥️ **Frontend (Vercel)** | [hack-in-motion-ricr-him-1236-b8so-two.vercel.app](https://hack-in-motion-ricr-him-1236-b8so-two.vercel.app) |
-| ⚙️ **Backend API (Render)** | [hackinmotion-ricr-him-1236.onrender.com](https://hackinmotion-ricr-him-1236.onrender.com) |
+| 🖥️ **Frontend** | [vettora-resume-analyzer.vercel.app](https://vettora-resume-analyzer.vercel.app) |
+| ⚙️ **Backend API** | [hackinmotion-ricr-him-1236.onrender.com](https://hackinmotion-ricr-him-1236.onrender.com) |
 
-### 🔑 Demo Login Credentials
+> **Note**: The backend is on Render's free tier and may take **30–60 seconds to wake up** after a period of inactivity.
 
-For quick evaluation, you can log in using these test credentials (or sign up with any email/Google account):
+---
 
-| Field | Value |
+## 📌 What is Vettora?
+
+**Vettora** is a career readiness platform built to solve a real problem: over **75% of resumes are filtered out before a human recruiter ever sees them**, due to non-standard formatting, missing keywords, or vague bullet points.
+
+Vettora gives candidates the tools to fight back:
+
+1. **AI Resume Auditor** — Deep ATS scoring, section analysis, and job description keyword matching powered by Google Gemini.
+2. **Voice Mock Interviewer** — Realistic AI-generated interview sessions based on your actual resume, with speech-to-text answers and instant AI feedback.
+
+---
+
+## ✨ Features
+
+### 📄 Smart Resume Evaluation
+- **ATS Compatibility Check** — Detects formatting issues, extractability, and section structure
+- **10-dimension Scoring** — Rates your resume across skills quality, experience, projects, achievements, writing clarity, technical depth, and more
+- **Job Description Matcher** — Compares your resume to any job posting and identifies matched, partial, and missing skills
+- **Actionable Suggestions** — Specific, prioritized improvements with strong action verb recommendations
+
+### 🎙️ AI Voice Mock Interviewer
+- **Personalized Questions** — 10 questions (7 technical + 3 behavioral) generated from your actual resume and target role
+- **Text-to-Speech** — The AI interviewer reads each question aloud with animated voice waves
+- **Speech-to-Text** — Dictate your answers in real-time using live voice recognition
+- **Per-answer Feedback** — Scored on Clarity, Relevance, and Completeness with actionable improvement tips
+- **Session Summary** — Overall rating out of 10, verdict, key strengths, and growth areas
+
+### 📊 Dashboard & History
+- **Stats Overview** — Highest and lowest resume scores across all your scans
+- **Resume History** — View, re-open, or delete any past analysis report
+- **Interview History** — Review past mock interview sessions, scores, and full question-by-question breakdowns
+
+---
+
+## 🛠️ Tech Stack
+
+**Tech Stack:** React 19, Django REST Framework, PostgreSQL, Google Gemini API, OpenAI API, Firebase Auth, Tailwind CSS v4, Vite 8, Vercel, Render
+
+### Frontend
+- **React 19** + **Vite 8** — UI and build tooling
+- **React Router v7** — Client-side routing
+- **Tailwind CSS v4** — Utility-first styling
+- **Firebase JS SDK** — Google OAuth + Email/Password authentication
+- **Web Speech API** — `SpeechSynthesis` (TTS) + `webkitSpeechRecognition` (STT)
+
+### Backend
+- **Django 5** + **Django REST Framework** — API layer
+- **Google Gemini API** (`gemini-flash-latest`) — Resume analysis and question generation
+- **PyMuPDF** + **python-docx** — PDF and DOCX resume parsing
+- **Firebase Admin SDK** — Server-side JWT token verification
+- **Pydantic v2** — AI response schema validation and type safety
+- **Gunicorn** + **WhiteNoise** — Production WSGI server and static files
+
+### Database & Deployment
+- **PostgreSQL** (Render managed) — Production database
+- **SQLite** — Local development database
+- **Vercel** — Frontend hosting and CDN
+- **Render** — Backend hosting
+
+### Database Models
+| Model | Description |
 |---|---|
-| **Email** | `nikkcr3141@gmail.com` |
-| **Password** | `NikhiL@54` |
-
-> **Note**: The backend is hosted on Render's free tier and may take **30–60 seconds to wake up** on first request after inactivity.
-
----
-
-## 📌 Project Overview
-
-**Vettora** is a comprehensive career readiness platform built to help candidates navigate modern automated hiring systems (ATS) and excel in technical interviews. 
-
-Over 75% of resumes are filtered out before reaching a human recruiter due to non-standard formatting, missing keywords, or unquantified bullet points. Vettora solves this by providing:
-1. **In-depth ATS & Skill Gap Analysis**: Detailed scoring, section audits, and job description matching.
-2. **AI Voice Mock Interviews**: Tailored 10-question interview sessions (7 technical + 3 behavioral) generated directly from your resume, featuring interactive voice dictation and instant AI feedback.
+| `UserProfile` | Linked to Firebase UID — stores display name, email, and timestamps |
+| `ResumeAnalysis` | Stores resume text, overall score, section breakdown, and full analysis JSON |
+| `MockInterview` | Stores interview sessions, target role, overall rating, and performance summary |
+| `InterviewQuestion` | Stores each question, user answer, AI score, and per-dimension feedback |
 
 ---
 
-## ✨ Main Features & Capabilities
-
-### 📄 1. Smart Resume Evaluation & ATS Audit
-- **Format & Structure Checks**: Detects text extractability, contact information, section hierarchies, and layout readability.
-- **Measurable Achievement Scoring**: Flags vague descriptions and recommends quantifiable impact statements using strong action verbs.
-- **Job Description Matcher**: Compares your resume against any job posting to surface exact matching skills, partial skills, and missing qualifications.
-
-### 🎙️ 2. Voice-Enabled AI Mock Interviewer
-- **Personalized Questions**: Generates 10 targeted questions (3 behavioral + 7 technical tiered from easy to hard) based on your uploaded resume and target role.
-- **Natural Voice Assistant**:
-  - **Text-to-Speech (TTS)**: The AI interviewer reads each question aloud in natural speech with animated voice waves.
-  - **Speech-to-Text (STT)**: Dictate answers in real-time using live voice recognition.
-- **Instant Answer Feedback**: Evaluates answers across **Clarity**, **Relevance**, and **Completeness** with actionable tips.
-- **Comprehensive Summary**: Delivers an overall rating out of 10, an assessment verdict, key strengths, growth areas, and a full question-by-question review.
-
-### 📊 3. Interactive User Dashboard & History
-- **Performance Highlights**: Displays your **Highest Score** and **Lowest Score** alongside the analyzed resume names.
-- **Past Resume Reports**: View, re-inspect, or delete past detailed analysis reports.
-- **Interview History & Detailed Review**: Review past mock interview sessions, replay scores, and track your interview progress over time.
-
----
-
-## 🛠️ Tech Stack & Database
-
-### 💻 Frontend
-- **Framework**: React 19 + Vite
-- **Routing**: React Router 7
-- **Styling**: TailwindCSS 4 + Custom Design Tokens (Vanilla CSS variables)
-- **Voice APIs**: Web Speech API (`SpeechSynthesis` & `webkitSpeechRecognition`)
-- **Authentication**: Firebase Authentication (Email/Password + Google OAuth)
-
-### ⚙️ Backend
-- **Framework**: Python 3.11+ / Django 6.1 + Django REST Framework (DRF)
-- **AI Engine**: Google Gemini API (`google-genai` / `gemini-flash-latest` with multi-model fallback)
-- **Document Parsing**: PyMuPDF (`fitz`) for PDF and `python-docx` for Word documents
-- **CORS & Auth**: `django-cors-headers`, Firebase Admin SDK (`firebase_admin`)
-
-### 🗄️ Database Models
-- **`UserProfile`**: Linked to Firebase UID, storing display name, email, and authentication timestamps.
-- **`ResumeAnalysis`**: Stores resume text, overall score, section breakdown, job match matrix, strengths, and recommendations.
-- **`MockInterview`**: Stores interview sessions, target role, overall rating, verdict, strengths, and growth areas.
-- **`InterviewQuestion`**: Stores each generated question, category, difficulty, candidate answer, individual scores, and feedback.
-
----
-
-## 🔄 Application Workflow
+## 🔄 Application Flow
 
 ```
-[User Signs Up / In]
-       │
-       ├──► [Dashboard]
-       │       ├── Upload Resume (.pdf / .docx) + Target Job Description
-       │       ├── Instant Analysis: ATS Score, Skill Gap, Bullet Improvements
-       │       └── Review Past Scans & Highest/Lowest Score Highlights
-       │
-       └──► [Mock Interview]
-               ├── Choose Target Role + Upload Resume
-               ├── AI Generates 10 Custom Questions (7 Tech + 3 Behavioral)
-               ├── Voice Interaction (AI speaks questions, user speaks answers)
-               ├── Real-time Answer Feedback (Clarity, Relevance, Completeness)
-               └── Performance Summary & Session Review History
+[Sign Up / Log In via Firebase]
+       |
+       +--> [Dashboard]
+       |       +--> Upload Resume (.pdf / .docx)
+       |       +--> Paste Job Description
+       |       +--> Get AI Analysis: ATS Score, Skill Gaps, Improvement Tips
+       |       +--> View / Delete Past Scan History
+       |
+       +--> [Mock Interview]
+               +--> Choose Target Role + Upload Resume
+               +--> AI Generates 10 Custom Questions
+               +--> Voice Interaction (AI speaks, you answer by voice)
+               +--> Real-time Per-answer Feedback
+               +--> Full Session Summary + History Review
 ```
 
 ---
 
-## 🚀 How to Run Locally
+## 🚀 Run Locally
 
-### 1. Prerequisites
-- **Node.js** (v18.0.0 or higher) & **npm**
-- **Python** (v3.10 or higher) & **pip**
-- **Git**
-- A free **Google Gemini API Key** ([Google AI Studio](https://aistudio.google.com/))
-- A free **Firebase Project** for authentication
+### Prerequisites
+- **Node.js** v18+ and **npm**
+- **Python** v3.10+ and **pip**
+- A **Google Gemini API Key** from [aistudio.google.com](https://aistudio.google.com/)
+- A **Firebase Project** for authentication
 
----
-
-### 2. Clone the Repository
+### 1. Clone
 ```bash
 git clone https://github.com/nikhil-verma54/HackInMotion-RICR-HIM-1236.git
 cd HackInMotion-RICR-HIM-1236
 ```
 
----
+### 2. Backend Setup
+```bash
+cd backend
+python -m venv venv
 
-### 3. Backend Setup
+# Windows
+.\venv\Scripts\Activate.ps1
 
-1. **Navigate to the backend folder**:
-   ```bash
-   cd backend
-   ```
+# macOS / Linux
+source venv/bin/activate
 
-2. **Create and activate a virtual environment**:
-   - **Windows (PowerShell)**:
-     ```powershell
-     python -m venv venv
-     .\venv\Scripts\Activate.ps1
-     ```
-   - **macOS / Linux**:
-     ```bash
-     python3 -m venv venv
-     source venv/bin/activate
-     ```
+pip install -r requirements.txt
+```
 
-3. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+Create `backend/.env`:
+```env
+DJANGO_SECRET_KEY=your_django_secret_key
+DJANGO_DEBUG=True
+GEMINI_API_KEY=your_google_gemini_api_key
+DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
+DJANGO_CORS_ALLOWED_ORIGINS=http://localhost:5173
+```
 
-4. **Set up Environment Variables**:
-   Create a `.env` file inside the `backend/` directory:
-   ```env
-   DJANGO_SECRET_KEY=your_django_secret_key
-   DJANGO_DEBUG=True
-   GEMINI_API_KEY=your_google_gemini_api_key
-   DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
-   DJANGO_CORS_ALLOWED_ORIGINS=http://localhost:5173
-   ```
+```bash
+python manage.py migrate
+python manage.py runserver 127.0.0.1:8000
+```
 
-5. **Apply Migrations**:
-   ```bash
-   python manage.py migrate
-   ```
+### 3. Frontend Setup
+```bash
+cd frontend
+npm install
+```
 
-6. **Start the Backend Server**:
-   ```bash
-   python manage.py runserver 127.0.0.1:8000
-   ```
-   *The Django API will be running at `http://127.0.0.1:8000/`.*
+Create `frontend/.env`:
+```env
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+VITE_API_URL=http://127.0.0.1:8000
+```
 
----
+```bash
+npm run dev
+```
 
-### 4. Frontend Setup
-
-1. **Open a new terminal and navigate to `frontend`**:
-   ```bash
-   cd frontend
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Set up Firebase Environment Variables**:
-   Create a `.env` file inside the `frontend/` directory with your Firebase configuration:
-   ```env
-   VITE_FIREBASE_API_KEY=your_firebase_api_key
-   VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
-   VITE_FIREBASE_PROJECT_ID=your_project_id
-   VITE_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
-   VITE_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
-   VITE_FIREBASE_APP_ID=your_app_id
-   ```
-
-4. **Start the Vite Development Server**:
-   ```bash
-   npm run dev
-   ```
-   *The application will be live at `http://localhost:5173/`.*
+App runs at `http://localhost:5173`
 
 ---
 
-## 📡 API Reference Overview
+## 📡 API Reference
 
 | Endpoint | Method | Description |
 |---|---|---|
-| `/api/auth/verify/` | `POST` | Authenticate user with Firebase token |
-| `/api/auth/logout/` | `POST` | Log out and clear session |
-| `/api/resume/upload/` | `POST` | Upload and parse resume file |
-| `/api/resume/analyze/` | `POST` | Analyze resume against optional job description |
-| `/api/resume/dashboard/` | `GET` | Retrieve user stats, scores, and past analyses |
-| `/api/resume/history/<id>/` | `GET` / `DELETE` | View details or remove a past scan |
-| `/api/resume/interview/start/` | `POST` | Generate questions and initiate interview session |
-| `/api/resume/interview/<id>/answer/` | `POST` | Evaluate answer for a specific question |
-| `/api/resume/interview/<id>/finish/` | `POST` | Compute final evaluation summary and verdict |
+| `/api/auth/login/` | `POST` | Verify Firebase token and sync user profile |
+| `/api/auth/logout/` | `POST` | Clear Django session |
+| `/api/resume/upload/` | `POST` | Upload and extract resume text |
+| `/api/resume/analyze/` | `POST` | Analyze resume against a job description |
+| `/api/resume/dashboard/` | `GET` | User stats and past analysis history |
+| `/api/resume/history/<id>/` | `GET` / `DELETE` | View or delete a past scan |
+| `/api/resume/interview/start/` | `POST` | Generate questions and start interview session |
+| `/api/resume/interview/<id>/answer/` | `POST` | Submit and evaluate an answer |
+| `/api/resume/interview/<id>/finish/` | `POST` | Finalize session and generate summary |
 | `/api/resume/interview/history/` | `GET` | List past mock interview sessions |
-| `/api/resume/interview/<id>/detail/` | `GET` | Full review with all questions, answers, and tips |
+| `/api/resume/interview/<id>/detail/` | `GET` | Full interview review with all Q&A and feedback |
 
 ---
 
-## 📄 License & Attribution
-Developed with ❤️ for **HackInMotion**. Feel free to contribute, open issues, and submit pull requests!
-
----
-
-## 🏁 Deployment Status — Final
+## 🏁 Deployment Status
 
 | Component | Status | Platform |
 |---|---|---|
 | 🖥️ Frontend | ✅ Live | Vercel |
 | ⚙️ Backend API | ✅ Live | Render |
-| 🗄️ Database | ✅ PostgreSQL managed | Render |
-| 🔐 Authentication | ✅ Firebase Auth active | Firebase |
-| 🤖 AI Engine | ✅ Gemini API connected | Google AI |
+| 🗄️ Database | ✅ PostgreSQL | Render |
+| 🔐 Authentication | ✅ Active | Firebase Auth |
+| 🤖 AI Engine | ✅ Connected | Google Gemini API |
 
-> **This project is complete and production-ready.** All services are deployed, authenticated, and communicating correctly.
+---
+
+## 📄 License
+
+Built and maintained by [Nikhil Verma](https://github.com/nikhil-verma54). Feel free to open issues or submit pull requests!

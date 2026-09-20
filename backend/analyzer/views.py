@@ -206,7 +206,7 @@ class AnalyzeResumeView(GenericAPIView):
 @permission_classes([IsAuthenticated])
 def dashboard(request):
     user = request.user
-    analyses_qs = ResumeAnalysis.objects.filter(user=user)
+    analyses_qs = ResumeAnalysis.objects.filter(user=user).order_by("-created_at")
 
     total_scans = analyses_qs.count()
     highest_record = analyses_qs.order_by("-overall_score", "-created_at").first()
@@ -221,7 +221,7 @@ def dashboard(request):
             "has_job_description": bool(a.job_description),
             "created_at": a.created_at.isoformat(),
         }
-        for a in analyses_qs[:20]
+        for a in analyses_qs[:20]  # newest 20 scans
     ]
 
     return Response(

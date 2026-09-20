@@ -153,8 +153,18 @@ export function AuthProvider({ children }) {
   // AUTH STATE LISTENER
   // =====================================================
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+      // Sync Django session/UserProfile every time Firebase auth state is
+      // restored (page reload, re-login after logout, token refresh etc.)
+      // This ensures the Django UserProfile always exists before API calls.
+      if (currentUser) {
+        try {
+          await sendTokenToDjango(currentUser);
+        } catch {
+          // Non-fatal — djangoRequest still sends Bearer token on every call
+        }
+      }
       setLoading(false);
     });
 
