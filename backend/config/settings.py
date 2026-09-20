@@ -183,7 +183,7 @@ CORS_ALLOW_ALL_ORIGINS = False
 
 _raw_cors = os.getenv(
     "DJANGO_CORS_ALLOWED_ORIGINS",
-    "http://localhost:5173,http://localhost:5174,http://127.0.0.1:5173,http://127.0.0.1:5174,https://hack-in-motion-ricr-him-1236-b8so-two.vercel.app",
+    "http://localhost:5173,http://localhost:5174,http://127.0.0.1:5173,http://127.0.0.1:5174,https://hack-in-motion-ricr-him-1236-b8so-two.vercel.app,https://vettora-resume-analyzer.vercel.app",
 )
 CORS_ALLOWED_ORIGINS = [o.strip() for o in _raw_cors.split(",") if o.strip()]
 
